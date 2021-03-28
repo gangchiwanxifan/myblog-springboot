@@ -1,0 +1,21 @@
+server:
+  port: 9100
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Lin862370422!
+    url: jdbc:mysql://8.140.157.40:3306/my_blog?useSSL=false&useUnicode=true&characterEncoding=utf-8
+    type: com.alibaba.druid.pool.DruidDataSource #数据源
+
+
+# 配置日志
+mybatis-plus.configuration.log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: is_deleted  # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
