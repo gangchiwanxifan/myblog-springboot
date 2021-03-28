@@ -14,6 +14,10 @@ spring:
 mybatis-plus.configuration.log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 mybatis-plus:
+  #别名
+  type-aliases-package: myblog.entity
+  #mapper的文件
+  mapper-locations: classpath:/mapper/**/*.xml
   global-config:
     db-config:
       logic-delete-field: is_deleted  # 全局逻辑删除的实体字段名

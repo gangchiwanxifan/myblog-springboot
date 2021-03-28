@@ -1,7 +1,7 @@
 package myblog.service;
 
-import myblog.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import myblog.entity.User;
 
 /**
  * <p>
@@ -12,5 +12,28 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-03-26
  */
 public interface UserService extends IService<User> {
+
+    /**
+     * 查询用户
+     * @param id
+     * @return
+     */
+    User selectById(Integer id);
+
+    /**
+     * 登录
+     * @param user
+     * @return
+     */
+    Integer login(User user);
+
+    /**
+     * 注册
+     * @param user
+     * @return 1|0
+     */
+    Integer register(User user);
+
+
 
 }
