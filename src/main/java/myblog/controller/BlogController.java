@@ -3,6 +3,7 @@ package myblog.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import myblog.entity.Blog;
+import myblog.entity.BlogDetail;
 import myblog.entity.BlogList;
 import myblog.service.BlogService;
 import myblog.utils.JsonResult;
@@ -72,6 +73,20 @@ public class BlogController {
         System.out.println("=====================");
         List<BlogList> blogList = blogService.selectListBychannel(channelId, sortByViews);
         return JsonResult.ok(blogList);
+    }
+
+    @RequestMapping("/detail")
+    public JsonResult<BlogDetail> getDetail(@RequestBody String condition) {
+        JSONObject jsonObject= (JSONObject) JSONObject.parse(condition);
+        Integer blogId = jsonObject.getInteger("blogId");
+        BlogDetail detail = blogService.getDetail(blogId);
+        return JsonResult.ok(detail);
+    }
+
+    @RequestMapping("/hot")
+    public JsonResult<List<Blog>> getHot() {
+        List<Blog> list = blogService.getHotList();
+        return  JsonResult.ok(list);
     }
 }
 

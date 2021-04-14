@@ -1,7 +1,5 @@
 package myblog.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 /**
@@ -13,7 +11,6 @@ public class BlogList {
     /**
      * 文章id
      */
-    @TableId(value = "blog_id", type = IdType.AUTO)
     private Integer blogId;
 
     /**
@@ -56,4 +53,13 @@ public class BlogList {
      */
     private Integer commentCount;
 
+    /**
+     * 浏览量
+     */
+    private Integer blogViews;
+
+    /**
+     * 用户头像
+     */
+    private String avatar;
 }

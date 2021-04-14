@@ -2,6 +2,7 @@ package myblog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import myblog.entity.Blog;
+import myblog.entity.BlogDetail;
 import myblog.entity.BlogList;
 
 import java.util.List;
@@ -23,7 +24,30 @@ public interface BlogService extends IService<Blog> {
      */
     List<Blog> selectDraftById(Integer id);
 
+    /**
+     * 获取首页文章列表
+     * @return
+     */
     List<BlogList> selectBloglist();
 
+    /**
+     * 获取栏目文章列表
+     * @param channelId
+     * @param sortByViews
+     * @return
+     */
     List<BlogList> selectListBychannel(Integer channelId, Boolean sortByViews);
+
+    /**
+     * 获取文章详情
+     * @param blogId
+     * @return
+     */
+    BlogDetail getDetail(Integer blogId);
+
+    /**
+     * 获取首页热门列表
+     * @return
+     */
+    List<Blog> getHotList();
 }

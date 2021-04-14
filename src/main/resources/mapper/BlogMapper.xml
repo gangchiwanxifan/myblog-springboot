@@ -12,6 +12,22 @@
         <result property="blogDescription" column="blog_description"/>
         <result property="favoriteCount" column="favorite_count"/>
         <result property="commentCount" column="comment_count"/>
+        <result property="blogViews" column="blog_views"/>
+        <result property="avatar" column="avatar"/>
+    </resultMap>
+
+    <resultMap id="BlogDetail" type="BlogDetail">
+        <result property="blogId" column="blog_id"/>
+        <result property="blogTitle" column="blog_title"/>
+        <result property="blogAuthorId" column="blog_author_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="avatar" column="avatar"/>
+        <result property="blogTags" column="blog_tags"/>
+        <result property="blogChannelId" column="blog_channel_id"/>
+        <result property="channelName" column="channel_name"/>
+        <result property="blogContent" column="blog_content"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="blogViews" column="blog_views"/>
     </resultMap>
 
     <select id="getBlogList" resultMap="BlogList">
@@ -25,7 +41,8 @@
             blog_description,
             COUNT(favorite_id) favorite_count,
             COUNT(comment_id) comment_count,
-            blog.create_time
+            blog_views,
+            avatar
         FROM
             blog
             LEFT JOIN `user`
@@ -34,6 +51,7 @@
             ON blog_id = favorite_blog_id
             LEFT JOIN `comment`
             ON blog_id = comment_blog_id
+        where blog.is_deleted = 0 and blog_status = 0
         GROUP BY
             blog_id
         ORDER BY
@@ -51,7 +69,7 @@
             blog_description,
             COUNT(favorite_id) favorite_count,
             COUNT(comment_id) comment_count,
-            blog.create_time
+            blog_views
         FROM
             blog
                 LEFT JOIN `user`
@@ -60,7 +78,7 @@
                           ON blog_id = favorite_blog_id
                 LEFT JOIN `comment`
                           ON blog_id = comment_blog_id
-        where blog_channel_id = #{channelId}
+        where blog_channel_id = #{channelId} and blog.is_deleted = 0 and blog_status = 0
         GROUP BY
             blog_id
         ORDER BY
@@ -70,7 +88,33 @@
         <if test="sortByViews == true">
             blog_views DESC
         </if>
-
     </select>
+
+    <select id="getBlogDetail" resultMap="BlogDetail">
+        SELECT
+            blog_id,
+            blog_title,
+            blog_author_id,
+            nickname,
+            avatar,
+            blog_tags,
+            blog_channel_id,
+            channel_name,
+            blog_content,
+            update_time,
+            blog_views
+        FROM
+            blog
+                LEFT JOIN `user` ON blog_author_id = user_id
+                LEFT JOIN channel ON blog_channel_id = channel_id
+        WHERE
+            blog.is_deleted = 0 AND blog_status = 0 AND blog_id = #{blogId}
+    </select>
+
+    <select id="getHotList" resultType="Blog">
+        select blog_id, blog_title from blog where blog.is_deleted = 0 AND blog_status = 0 order by blog_views desc limit 5;
+    </select>
+
+
 
 </mapper>

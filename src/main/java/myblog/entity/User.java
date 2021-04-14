@@ -3,9 +3,10 @@ package myblog.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -81,6 +82,11 @@ public class User implements Serializable {
      * 是否锁定
      */
     private Integer locked;
+
+    /**
+     * 标签
+     */
+    private String tags;
 
     /**
      * 是否注销

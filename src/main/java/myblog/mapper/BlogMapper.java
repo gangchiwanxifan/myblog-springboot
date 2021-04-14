@@ -2,6 +2,7 @@ package myblog.mapper;
 
 import myblog.entity.Blog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import myblog.entity.BlogDetail;
 import myblog.entity.BlogList;
 
 import java.util.List;
@@ -29,5 +30,18 @@ public interface BlogMapper extends BaseMapper<Blog> {
      * @return
      */
     List<BlogList> getChannelList(Integer channelId, Boolean sortByViews);
+
+    /**
+     * 获取文章详情
+     * @param blogId
+     * @return
+     */
+    BlogDetail getBlogDetail(Integer blogId);
+
+    /**
+     * 获取首页热门文章
+     * @return
+     */
+    List<Blog> getHotList();
 
 }

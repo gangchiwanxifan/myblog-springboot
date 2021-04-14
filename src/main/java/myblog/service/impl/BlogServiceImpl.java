@@ -2,6 +2,7 @@ package myblog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import myblog.entity.Blog;
+import myblog.entity.BlogDetail;
 import myblog.entity.BlogList;
 import myblog.mapper.BlogMapper;
 import myblog.service.BlogService;
@@ -41,5 +42,19 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
     @Override
     public List<BlogList> selectListBychannel(Integer channelId, Boolean sortByViews) {
         return blogMapper.getChannelList(channelId,sortByViews);
+    }
+
+    @Override
+    public BlogDetail getDetail(Integer blogId) {
+        Blog blog = blogMapper.selectById(blogId);
+        // 增加浏览量
+        blog.setBlogViews(blog.getBlogViews() + 1);
+        blogMapper.updateById(blog);
+        return blogMapper.getBlogDetail(blogId);
+    }
+
+    @Override
+    public List<Blog> getHotList() {
+        return blogMapper.getHotList();
     }
 }

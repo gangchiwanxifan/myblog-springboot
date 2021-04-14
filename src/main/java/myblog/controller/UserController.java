@@ -46,6 +46,8 @@ public class UserController {
         return JsonResult.ok(userService.register(user));
     }
 
+    @RequestMapping("/update")
+    public JsonResult<Boolean> update(@RequestBody User user) { return  JsonResult.ok(userService.updateById(user)); }
 
 
 }

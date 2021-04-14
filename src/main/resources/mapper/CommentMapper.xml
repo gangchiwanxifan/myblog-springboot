@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myblog.mapper.CommentMapper">
+
+    <!--<resultMap id="showComment" type="Comment">-->
+    <!--    -->
+    <!--</resultMap>-->
+    <select id="selectComment" resultType="Comment">
+        select
+            comment_id,
+            comment_blog_id,
+            parent_id,
+            comment_user_id,
+            comment_content,
+            comment.create_time,
+            nickname,
+            avatar
+        from
+            comment,
+            user
+        where
+            comment_blog_id = #{blogId}
+        and
+            comment.is_deleted = 0
+        and
+            comment_user_id = user_id
+        order by
+            comment.create_time desc
+
+    </select>
+</mapper>
