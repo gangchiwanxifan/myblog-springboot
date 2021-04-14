@@ -49,6 +49,13 @@ public class UserController {
     @RequestMapping("/update")
     public JsonResult<Boolean> update(@RequestBody User user) { return  JsonResult.ok(userService.updateById(user)); }
 
+    @RequestMapping("/pay")
+    public JsonResult<Boolean> pay(@RequestBody User user) {
+        User realUser = userService.selectById(user.getUserId());
+        realUser.setBalance(realUser.getBalance() + user.getBalance());
+        return JsonResult.ok(userService.updateById(realUser));
+    }
+
 
 }
 

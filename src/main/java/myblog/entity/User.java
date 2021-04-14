@@ -3,10 +3,12 @@ package myblog.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -76,7 +78,7 @@ public class User implements Serializable {
     /**
      * 账户余额
      */
-    private Integer banance;
+    private Integer balance;
 
     /**
      * 是否锁定
@@ -93,6 +95,12 @@ public class User implements Serializable {
      */
     @TableLogic
     private Integer isDeleted;
+
+    /**
+     * 创建时间
+     */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
 
 
 }

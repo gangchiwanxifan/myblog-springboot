@@ -1,12 +1,11 @@
 package myblog;
 
-import myblog.entity.Blog;
-import myblog.entity.BlogDetail;
-import myblog.entity.BlogList;
-import myblog.entity.Comment;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import myblog.entity.*;
 import myblog.mapper.BlogMapper;
 import myblog.mapper.CommentMapper;
 import myblog.service.BlogService;
+import myblog.service.HomePageService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -24,6 +23,9 @@ class MyblogApplicationTests {
 
     @Resource
     private CommentMapper commentMapper;
+
+    @Resource
+    private HomePageService homePageService;
 
     @Test
     void contextLoads() {
@@ -49,6 +51,14 @@ class MyblogApplicationTests {
     void getHot() {
         List<Blog> hotList = blogMapper.getHotList();
         hotList.forEach(System.out::println);
+    }
+
+    @Test
+    void getHomePage() {
+        QueryWrapper<HomePage> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id", 1);
+        // Boolean throwEx;
+        HomePage one = homePageService.getOne(wrapper);
     }
 
 }
