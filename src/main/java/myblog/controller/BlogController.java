@@ -7,9 +7,7 @@ import myblog.entity.BlogDetail;
 import myblog.entity.BlogList;
 import myblog.service.BlogService;
 import myblog.utils.JsonResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -57,9 +55,15 @@ public class BlogController {
         return JsonResult.ok(blog);
     }
 
-    @RequestMapping("/list")
+    @PostMapping("/list")
+    public JsonResult<List<BlogList>> list(@RequestBody BlogList blog) {
+        List<BlogList> blogList = blogService.selectBloglist(blog);
+        return JsonResult.ok(blogList);
+    }
+
+    @GetMapping("/list")
     public JsonResult<List<BlogList>> list() {
-        List<BlogList> blogList = blogService.selectBloglist();
+        List<BlogList> blogList = blogService.selectBloglist(new BlogList());
         return JsonResult.ok(blogList);
     }
 
@@ -87,6 +91,37 @@ public class BlogController {
     public JsonResult<List<Blog>> getHot() {
         List<Blog> list = blogService.getHotList();
         return  JsonResult.ok(list);
+    }
+
+    // @RequestMapping("/list/user")
+    // public JsonResult<List<Blog>> getListByUserId(@RequestBody String condition) {
+    //     JSONObject jsonObject= (JSONObject) JSONObject.parse(condition);
+    //     Integer userId = jsonObject.getInteger("userId");
+    //     return JsonResult.ok(blogService.getListByUserId(userId));
+    // }
+
+    @RequestMapping("/list/user")
+    public JsonResult<List<Blog>> getListByUserId(@RequestBody Blog blog) {
+        // JSONObject jsonObject= (JSONObject) JSONObject.parse(condition);
+        // Integer userId = jsonObject.getInteger("userId");
+        return JsonResult.ok(blogService.getListById(blog));
+    }
+
+    @RequestMapping("/list/favorite")
+    public JsonResult<List<BlogList>> getFavoriteList(@RequestBody String condition) {
+        JSONObject jsonObject= (JSONObject) JSONObject.parse(condition);
+        Integer userId = jsonObject.getInteger("userId");
+        return JsonResult.ok(blogService.getFavoriteList(userId));
+    }
+
+    @RequestMapping("/get")
+    public JsonResult<Blog> getById(@RequestBody Blog blog) {
+        return JsonResult.ok(blogService.getById(blog.getBlogId()));
+    }
+
+    @RequestMapping("/update")
+    public JsonResult<Boolean> update(@RequestBody Blog blog) {
+        return JsonResult.ok(blogService.updateById(blog));
     }
 }
 

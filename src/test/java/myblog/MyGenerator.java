@@ -71,7 +71,7 @@ public class MyGenerator {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
 
         // *****设置要映射的表名*****
-        strategy.setInclude("home_page");
+        strategy.setInclude("follow");
 
         // 自动lombok
         strategy.setEntityLombokModel(true);

@@ -28,7 +28,7 @@ public interface BlogService extends IService<Blog> {
      * 获取首页文章列表
      * @return
      */
-    List<BlogList> selectBloglist();
+    List<BlogList> selectBloglist(BlogList blog);
 
     /**
      * 获取栏目文章列表
@@ -50,4 +50,18 @@ public interface BlogService extends IService<Blog> {
      * @return
      */
     List<Blog> getHotList();
+
+    /**
+     * 获取用户文章列表
+     * @param blog
+     * @return
+     */
+    List<Blog> getListById(Blog blog);
+
+    /**
+     * 获取用户收藏列表
+     * @param userId
+     * @return
+     */
+    List<BlogList> getFavoriteList(Integer userId);
 }

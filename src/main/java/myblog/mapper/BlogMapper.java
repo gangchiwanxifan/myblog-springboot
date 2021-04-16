@@ -21,7 +21,7 @@ public interface BlogMapper extends BaseMapper<Blog> {
      * 获取文章列表信息
      * @return
      */
-    List<BlogList> getBlogList();
+    List<BlogList> getBlogList(BlogList blog);
 
     /**
      * 获取栏目文章列表
@@ -43,5 +43,19 @@ public interface BlogMapper extends BaseMapper<Blog> {
      * @return
      */
     List<Blog> getHotList();
+
+    /**
+     * 获取指定用户文章列表
+     * @param  blog
+     * @return
+     */
+    List<Blog> getListById(Blog blog);
+
+    /**
+     * 获取用户收藏文章
+     * @param userId
+     * @return
+     */
+    List<BlogList> getFavoriteById(Integer userId);
 
 }

@@ -35,8 +35,8 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
     }
 
     @Override
-    public List<BlogList> selectBloglist() {
-        return blogMapper.getBlogList();
+    public List<BlogList> selectBloglist(BlogList blog) {
+        return blogMapper.getBlogList(blog);
     }
 
     @Override
@@ -56,5 +56,15 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
     @Override
     public List<Blog> getHotList() {
         return blogMapper.getHotList();
+    }
+
+    @Override
+    public List<Blog> getListById(Blog blog) {
+        return blogMapper.getListById(blog);
+    }
+
+    @Override
+    public List<BlogList> getFavoriteList(Integer userId) {
+        return blogMapper.getFavoriteById(userId);
     }
 }

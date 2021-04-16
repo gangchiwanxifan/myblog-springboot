@@ -115,6 +115,44 @@
         select blog_id, blog_title from blog where blog.is_deleted = 0 AND blog_status = 0 order by blog_views desc limit 5;
     </select>
 
+    <select id="getListById" parameterType="Blog" resultType="Blog">
+        select blog_id, blog_avatar, blog_title, blog_description, update_time
+        from blog
+        where blog_status = 0 and is_deleted = 0
+        <if test="blogAuthorId != null">
+            and blog_author_id = #{blogAuthorId}
+        </if>
+        <if test="blogCatagoryId != null">
+            and blog_catagory_id = #{blogCatagoryId}
+        </if>
+    </select>
+
+    <select id="getFavoriteById" resultMap="BlogList">
+        SELECT
+            blog_id,
+            blog_title,
+            blog_author_id,
+            nickname,
+            blog_tags,
+            blog_avatar,
+            blog_description,
+            COUNT(favorite_id) favorite_count,
+            COUNT(comment_id) comment_count,
+            blog_views,
+            avatar
+        FROM
+            blog
+                LEFT JOIN `user`
+                          ON blog_author_id = user_id
+                LEFT JOIN favorite
+                          ON blog_id = favorite_blog_id
+                LEFT JOIN `comment`
+                          ON blog_id = comment_blog_id
+        where blog.is_deleted = 0 and blog_status = 0 and favorite_user_id = #{userId}
+        GROUP BY
+            blog_id
+    </select>
+
 
 
 </mapper>

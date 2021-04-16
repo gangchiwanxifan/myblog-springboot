@@ -27,12 +27,13 @@ class MyblogApplicationTests {
     @Resource
     private HomePageService homePageService;
 
-    @Test
-    void contextLoads() {
-        List<BlogList> blogList = blogMapper.getBlogList();
-        List<BlogList> blogList1 = blogMapper.getChannelList(6, false);
-        blogList1.forEach(System.out::println);
-    }
+    // @Test
+    // void contextLoads() {
+    //
+    //     List<BlogList> blogList = blogMapper.getBlogList(BlogList blog);
+    //     List<BlogList> blogList1 = blogMapper.getChannelList(6, false);
+    //     blogList1.forEach(System.out::println);
+    // }
 
     @Test
     void getDetail() {
