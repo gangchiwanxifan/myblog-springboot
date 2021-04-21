@@ -2,6 +2,7 @@ package myblog.mapper;
 
 import myblog.entity.Comment;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -21,5 +22,13 @@ public interface CommentMapper extends BaseMapper<Comment> {
      * @return
      */
     List<Comment> selectComment(Integer blogId);
+
+    /**
+     * 获取评论人id
+     * @param commentId
+     * @return
+     */
+    @Select("select comment_user_id from comment where comment_id = #{commentId}")
+    Integer getAuthorId(Integer commentId);
 
 }

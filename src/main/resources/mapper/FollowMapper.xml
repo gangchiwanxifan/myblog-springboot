@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myblog.mapper.FollowMapper">
+
+    <select id="selectFollowList" resultType="FollowList">
+        select follow_user_id, follow_fan_id, follow.create_time, avatar, nickname, introduction
+        from follow
+                 left join user
+                           on user.user_id = follow_user_id
+        where follow_fan_id = #{followFanId}
+    </select>
+
+    <select id="selectFanList" resultType="FollowList">
+        select follow_user_id, follow_fan_id, follow.create_time, avatar, nickname, introduction
+        from follow
+                 left join user
+                           on user.user_id = follow_fan_id
+        where follow_user_id = #{followUserId}
+    </select>
+
+
+</mapper>

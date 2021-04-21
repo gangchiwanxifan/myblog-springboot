@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * <p>
@@ -56,6 +57,9 @@ public class UserController {
         return JsonResult.ok(userService.updateById(realUser));
     }
 
-
+    @RequestMapping("/reward")
+    public JsonResult<Boolean> reward(@RequestBody Map<String, User> map) {
+        return JsonResult.ok(userService.reward(map));
+    }
 }
 

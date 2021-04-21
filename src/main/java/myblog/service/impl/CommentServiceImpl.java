@@ -48,4 +48,14 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         }
         return result;
     }
+
+    @Override
+    public Integer deleteComments(Comment comment) {
+        if (comment.getChild() != null) {
+            for(Comment item : comment.getChild()){
+                deleteComments(item);
+            }
+        }
+        return commentMapper.deleteById(comment.getCommentId());
+    }
 }

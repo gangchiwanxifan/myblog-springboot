@@ -3,6 +3,8 @@ package myblog.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import myblog.entity.User;
 
+import java.util.Map;
+
 /**
  * <p>
  *  服务类
@@ -33,6 +35,13 @@ public interface UserService extends IService<User> {
      * @return 1|0
      */
     Integer register(User user);
+
+    /**
+     * 打赏
+     * @param map
+     * @return
+     */
+    Boolean reward(Map<String, User> map);
 
 
 

@@ -65,6 +65,11 @@ public class BlogDetail {
     private String avatar;
 
     /**
+     * 作者描述
+     */
+    private String introduction;
+
+    /**
      * 栏目名称
      */
     private String channelName;

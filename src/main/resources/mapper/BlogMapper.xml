@@ -28,6 +28,7 @@
         <result property="blogContent" column="blog_content"/>
         <result property="updateTime" column="update_time"/>
         <result property="blogViews" column="blog_views"/>
+        <result property="introduction" column="introduction"/>
     </resultMap>
 
     <select id="getBlogList" resultMap="BlogList">
@@ -39,8 +40,8 @@
             blog_tags,
             blog_avatar,
             blog_description,
-            COUNT(favorite_id) favorite_count,
-            COUNT(comment_id) comment_count,
+            COUNT(DISTINCT(favorite_id)) favorite_count,
+            COUNT(DISTINCT(comment_id)) comment_count,
             blog_views,
             avatar
         FROM
@@ -67,8 +68,8 @@
             blog_tags,
             blog_avatar,
             blog_description,
-            COUNT(favorite_id) favorite_count,
-            COUNT(comment_id) comment_count,
+            COUNT(DISTINCT(favorite_id)) favorite_count,
+            COUNT(DISTINCT(comment_id)) comment_count,
             blog_views
         FROM
             blog
@@ -102,7 +103,8 @@
             channel_name,
             blog_content,
             update_time,
-            blog_views
+            blog_views,
+            introduction
         FROM
             blog
                 LEFT JOIN `user` ON blog_author_id = user_id
@@ -136,8 +138,8 @@
             blog_tags,
             blog_avatar,
             blog_description,
-            COUNT(favorite_id) favorite_count,
-            COUNT(comment_id) comment_count,
+            COUNT(DISTINCT(favorite_id)) favorite_count,
+            COUNT(DISTINCT(comment_id)) comment_count,
             blog_views,
             avatar
         FROM

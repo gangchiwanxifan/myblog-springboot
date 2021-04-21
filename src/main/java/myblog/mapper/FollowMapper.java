@@ -1,7 +1,10 @@
 package myblog.mapper;
 
-import myblog.entity.Follow;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import myblog.entity.Follow;
+import myblog.entity.FollowList;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,19 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2021-04-15
  */
 public interface FollowMapper extends BaseMapper<Follow> {
+
+    /**
+     * 获取关注列表
+     * @param follow
+     * @return
+     */
+    List<FollowList> selectFollowList(Follow follow);
+
+    /**
+     * 获取粉丝列表
+     * @param follow
+     * @return
+     */
+    List<FollowList> selectFanList(Follow follow);
 
 }

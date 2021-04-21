@@ -4,24 +4,15 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 
- * </p>
- *
  * @author gcwxf
- * @since 2021-04-15
+ * Created on 2021/4/18 - 15:42
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class Follow implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class FollowList {
 
     /**
      * 主键id
@@ -45,5 +36,20 @@ public class Follow implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
+    /**
+     * 头像
+     */
+    private String avatar;
+
+
+    /**
+     * 昵称
+     */
+    private String nickname;
+
+    /**
+     * 简介
+     */
+    private String introduction;
 
 }

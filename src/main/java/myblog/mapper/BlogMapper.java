@@ -4,6 +4,7 @@ import myblog.entity.Blog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import myblog.entity.BlogDetail;
 import myblog.entity.BlogList;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -57,5 +58,21 @@ public interface BlogMapper extends BaseMapper<Blog> {
      * @return
      */
     List<BlogList> getFavoriteById(Integer userId);
+
+    /**
+     * 获取文章作者id
+     * @param blogId
+     * @return
+     */
+    @Select("select blog_author_id from blog where blog_id = #{blogId}")
+    Integer getAuthorId(Integer blogId);
+
+    /**
+     * 获取文章标题
+     * @param blogId
+     * @return
+     */
+    @Select("select blog_title from blog where blog_id = #{blogId}")
+    String getBlogTitle(Integer blogId);
 
 }

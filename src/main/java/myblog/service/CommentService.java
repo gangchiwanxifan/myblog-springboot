@@ -22,4 +22,11 @@ public interface CommentService extends IService<Comment> {
      */
     List<Comment> getComments(Integer blogId);
 
+    /**
+     * 删除评论
+     * @param comment
+     * @return
+     */
+    Integer deleteComments(Comment comment);
+
 }
