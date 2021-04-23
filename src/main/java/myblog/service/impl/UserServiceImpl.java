@@ -36,12 +36,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public Integer login(User user) {
+    public User login(User user) {
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
         userQueryWrapper.eq("username", user.getUsername());
         userQueryWrapper.eq("password", user.getPassword());
-        User user1 = userMapper.selectOne(userQueryWrapper);
-        return user1 != null ? user1.getUserId() : 0;
+        return userMapper.selectOne(userQueryWrapper);
     }
 
     @Override

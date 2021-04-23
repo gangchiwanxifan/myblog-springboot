@@ -1,5 +1,6 @@
 package myblog.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import myblog.entity.Blog;
 import myblog.entity.BlogDetail;
@@ -28,7 +29,14 @@ public interface BlogService extends IService<Blog> {
      * 获取首页文章列表
      * @return
      */
-    List<BlogList> selectBloglist(BlogList blog);
+    List<BlogList> selectBloglist();
+
+    /**
+     * 分页获取文章列表
+     * @param page
+     * @return
+     */
+    List<BlogList> selectBloglist(Page<?> page);
 
     /**
      * 获取栏目文章列表
@@ -64,4 +72,11 @@ public interface BlogService extends IService<Blog> {
      * @return
      */
     List<BlogList> getFavoriteList(Integer userId);
+
+    /**
+     * 获取搜索列表
+     * @param keyword
+     * @return
+     */
+    List<BlogList> getSearchList(String keyword);
 }

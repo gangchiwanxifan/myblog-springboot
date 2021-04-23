@@ -2,6 +2,7 @@ package myblog.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import myblog.entity.Blog;
 import myblog.entity.BlogDetail;
 import myblog.entity.BlogList;
@@ -49,21 +50,9 @@ public class BlogController {
         return JsonResult.ok(flag);
     }
 
-    @RequestMapping("test_blog")
-    public JsonResult<Blog> get() {
-        Blog blog = blogService.getById(3);
-        return JsonResult.ok(blog);
-    }
-
-    @PostMapping("/list")
-    public JsonResult<List<BlogList>> list(@RequestBody BlogList blog) {
-        List<BlogList> blogList = blogService.selectBloglist(blog);
-        return JsonResult.ok(blogList);
-    }
-
     @GetMapping("/list")
     public JsonResult<List<BlogList>> list() {
-        List<BlogList> blogList = blogService.selectBloglist(new BlogList());
+        List<BlogList> blogList = blogService.selectBloglist();
         return JsonResult.ok(blogList);
     }
 
@@ -93,13 +82,6 @@ public class BlogController {
         return  JsonResult.ok(list);
     }
 
-    // @RequestMapping("/list/user")
-    // public JsonResult<List<Blog>> getListByUserId(@RequestBody String condition) {
-    //     JSONObject jsonObject= (JSONObject) JSONObject.parse(condition);
-    //     Integer userId = jsonObject.getInteger("userId");
-    //     return JsonResult.ok(blogService.getListByUserId(userId));
-    // }
-
     @RequestMapping("/list/user")
     public JsonResult<List<Blog>> getListByUserId(@RequestBody Blog blog) {
         // JSONObject jsonObject= (JSONObject) JSONObject.parse(condition);
@@ -123,5 +105,19 @@ public class BlogController {
     public JsonResult<Boolean> update(@RequestBody Blog blog) {
         return JsonResult.ok(blogService.updateById(blog));
     }
+
+    @RequestMapping("/search")
+    public JsonResult<List<BlogList>> search(@RequestBody String condition) {
+        JSONObject jsonObject= (JSONObject) JSONObject.parse(condition);
+        String keyword = jsonObject.getString("keyword");
+        return JsonResult.ok(blogService.getSearchList(keyword));
+    }
+
+    @RequestMapping("/page/{pageNum}")
+    public JsonResult<List<BlogList>> page(@PathVariable("pageNum") Integer pageNum) {
+        Page<BlogList> page = new Page<>(pageNum, 6);
+        return JsonResult.ok(blogService.selectBloglist(page));
+    }
+
 }
 

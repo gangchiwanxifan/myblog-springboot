@@ -1,12 +1,13 @@
 package myblog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import myblog.entity.Blog;
 import myblog.entity.BlogDetail;
 import myblog.entity.BlogList;
 import myblog.mapper.BlogMapper;
 import myblog.service.BlogService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -35,8 +36,13 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
     }
 
     @Override
-    public List<BlogList> selectBloglist(BlogList blog) {
-        return blogMapper.getBlogList(blog);
+    public List<BlogList> selectBloglist() {
+        return blogMapper.getBlogList();
+    }
+
+    @Override
+    public List<BlogList> selectBloglist(Page<?> page) {
+        return blogMapper.getBlogList(page);
     }
 
     @Override
@@ -66,5 +72,10 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
     @Override
     public List<BlogList> getFavoriteList(Integer userId) {
         return blogMapper.getFavoriteById(userId);
+    }
+
+    @Override
+    public List<BlogList> getSearchList(String keyword) {
+        return blogMapper.searchBlog(keyword);
     }
 }

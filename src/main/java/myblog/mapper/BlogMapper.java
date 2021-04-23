@@ -1,7 +1,8 @@
 package myblog.mapper;
 
-import myblog.entity.Blog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import myblog.entity.Blog;
 import myblog.entity.BlogDetail;
 import myblog.entity.BlogList;
 import org.apache.ibatis.annotations.Select;
@@ -22,7 +23,14 @@ public interface BlogMapper extends BaseMapper<Blog> {
      * 获取文章列表信息
      * @return
      */
-    List<BlogList> getBlogList(BlogList blog);
+    List<BlogList> getBlogList();
+
+    /**
+     * 分页获取文章列表信息
+     * @param page
+     * @return
+     */
+    List<BlogList> getBlogList(Page<?> page);
 
     /**
      * 获取栏目文章列表
@@ -74,5 +82,12 @@ public interface BlogMapper extends BaseMapper<Blog> {
      */
     @Select("select blog_title from blog where blog_id = #{blogId}")
     String getBlogTitle(Integer blogId);
+
+    /**
+     * 搜索文章
+     * @param keyword
+     * @return
+     */
+    List<BlogList> searchBlog(String keyword);
 
 }

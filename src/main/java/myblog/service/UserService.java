@@ -27,7 +27,7 @@ public interface UserService extends IService<User> {
      * @param user
      * @return
      */
-    Integer login(User user);
+    User login(User user);
 
     /**
      * 注册

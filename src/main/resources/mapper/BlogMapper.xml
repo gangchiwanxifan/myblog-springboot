@@ -56,7 +56,7 @@
         GROUP BY
             blog_id
         ORDER BY
-            blog.create_time DESC
+            blog.update_time DESC
     </select>
 
     <select id="getChannelList" resultMap="BlogList">
@@ -84,7 +84,7 @@
             blog_id
         ORDER BY
         <if test="sortByViews == false">
-            blog.create_time DESC
+            blog.update_time DESC
         </if>
         <if test="sortByViews == true">
             blog_views DESC
@@ -153,6 +153,39 @@
         where blog.is_deleted = 0 and blog_status = 0 and favorite_user_id = #{userId}
         GROUP BY
             blog_id
+    </select>
+
+    <select id="searchBlog" resultMap="BlogList">
+        SELECT
+            blog_id,
+            blog_title,
+            blog_author_id,
+            nickname,
+            blog_tags,
+            blog_avatar,
+            blog_description,
+            COUNT(DISTINCT(favorite_id)) favorite_count,
+            COUNT(DISTINCT(comment_id)) comment_count,
+            blog_views,
+            avatar
+        FROM
+            blog
+                LEFT JOIN `user`
+                          ON blog_author_id = user_id
+                LEFT JOIN favorite
+                          ON blog_id = favorite_blog_id
+                LEFT JOIN `comment`
+                          ON blog_id = comment_blog_id
+        where blog.is_deleted = 0 and
+              blog_status = 0 and
+              (blog_title like concat('%',#{keyword},'%') or
+               blog_description like concat('%',#{keyword},'%') or
+               blog_tags like concat('%',#{keyword},'%'))
+
+        GROUP BY
+            blog_id
+        ORDER BY
+            blog.update_time DESC
     </select>
 
 

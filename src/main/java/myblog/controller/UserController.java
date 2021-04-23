@@ -2,6 +2,7 @@ package myblog.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import myblog.entity.User;
 import myblog.service.UserService;
 import myblog.utils.JsonResult;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public JsonResult<Integer> login(@RequestBody User user) {
+    public JsonResult<User> login(@RequestBody User user) {
         return JsonResult.ok(userService.login(user));
     }
 
@@ -60,6 +62,21 @@ public class UserController {
     @RequestMapping("/reward")
     public JsonResult<Boolean> reward(@RequestBody Map<String, User> map) {
         return JsonResult.ok(userService.reward(map));
+    }
+
+    @RequestMapping("/list")
+    public JsonResult<List<User>> list() {
+        return JsonResult.ok(userService.list());
+    }
+
+    @RequestMapping("/search")
+    public JsonResult<List<User>> search(@RequestBody String condition) {
+        JSONObject jsonObject= (JSONObject) JSONObject.parse(condition);
+        String keyword=jsonObject.getString("keyword");
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.like("username", keyword)
+                .or().like("nickname", keyword);
+        return JsonResult.ok(userService.list(wrapper));
     }
 }
 

@@ -22,6 +22,6 @@ public interface NoticeMapper extends BaseMapper<Notice> {
      * @param notice
      * @return
      */
-    @Select("select notice.*, nickname, avatar from notice, user where notice_send_id = user_id and notice_user_id = #{noticeUserId} and notice_status = #{noticeStatus}")
+    @Select("select notice.*, nickname, avatar from notice, user where notice_send_id = user_id and notice_user_id = #{noticeUserId} and notice_status = #{noticeStatus} order by create_time desc")
     List<NoticeInfo> getNoticeList(Notice notice);
 }

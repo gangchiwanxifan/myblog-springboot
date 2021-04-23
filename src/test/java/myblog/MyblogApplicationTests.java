@@ -1,6 +1,7 @@
 package myblog;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import myblog.entity.*;
 import myblog.mapper.BlogMapper;
 import myblog.mapper.CommentMapper;
@@ -97,5 +98,13 @@ class MyblogApplicationTests {
         notice.setNoticeUserId(1);
         List<NoticeInfo> noticeList = noticeService.getNotice(notice);
         System.out.println(noticeList);
+    }
+
+    @Test
+    void testPage() {
+        Page<BlogList> page = new Page<>(4,3);
+        List<BlogList> list = blogService.selectBloglist(page);
+        list.forEach(System.out::println);
+
     }
 }
