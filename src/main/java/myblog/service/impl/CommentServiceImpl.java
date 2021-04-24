@@ -1,5 +1,6 @@
 package myblog.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import myblog.entity.Comment;
 import myblog.mapper.CommentMapper;
@@ -29,6 +30,42 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Override
     public List<Comment> getComments(Integer blogId) {
         List<Comment> allComments = commentMapper.selectComment(blogId);
+        return handleList(allComments);
+
+    }
+
+    @Override
+    public Integer deleteComments(Comment comment) {
+        if (comment.getChild() != null) {
+            for(Comment item : comment.getChild()){
+                deleteComments(item);
+            }
+        }
+        return commentMapper.deleteById(comment.getCommentId());
+    }
+
+    @Override
+    public List<Comment> getCommentList(Page<?> page) {
+        return commentMapper.selectList(page);
+    }
+
+    @Override
+    public List<Comment> getReportedList(Page<?> page) {
+        return commentMapper.selectReported(page);
+    }
+
+    @Override
+    public Integer deleteCommentById(Integer commentId) {
+        List<Integer> children = commentMapper.getChildren(commentId);
+        if (!children.isEmpty()) {
+            for (Integer child : children) {
+                deleteCommentById(child);
+            }
+        }
+        return commentMapper.deleteById(commentId);
+    }
+
+    public List<Comment> handleList(List<Comment> allComments) {
         Map<Integer, Comment> map = new HashMap<>();
         List<Comment> result = new ArrayList<>();
         for (Comment c : allComments) {
@@ -47,15 +84,5 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             }
         }
         return result;
-    }
-
-    @Override
-    public Integer deleteComments(Comment comment) {
-        if (comment.getChild() != null) {
-            for(Comment item : comment.getChild()){
-                deleteComments(item);
-            }
-        }
-        return commentMapper.deleteById(comment.getCommentId());
     }
 }

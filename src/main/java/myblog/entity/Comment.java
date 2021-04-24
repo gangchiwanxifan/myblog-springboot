@@ -63,6 +63,11 @@ public class Comment implements Serializable {
     @TableLogic
     private Integer isDeleted;
 
+    /**
+     * 被举报次数
+     */
+    private Integer reported;
+
     /*添加字段*/
 
     /**

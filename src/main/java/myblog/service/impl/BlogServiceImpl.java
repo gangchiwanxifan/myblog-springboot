@@ -60,8 +60,8 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
     }
 
     @Override
-    public List<Blog> getHotList() {
-        return blogMapper.getHotList();
+    public List<Blog> getHotList(Page<?> page) {
+        return blogMapper.getHotList(page);
     }
 
     @Override

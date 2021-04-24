@@ -14,7 +14,8 @@
             comment_content,
             comment.create_time,
             nickname,
-            avatar
+            avatar,
+            reported
         from
             comment,
             user
@@ -26,6 +27,51 @@
             comment_user_id = user_id
         order by
             comment.create_time desc
+    </select>
 
+    <select id="selectList" resultType="Comment">
+        select
+            comment_id,
+            comment_blog_id,
+            parent_id,
+            comment_user_id,
+            comment_content,
+            comment.create_time,
+            nickname,
+            avatar,
+            reported
+        from
+            comment,
+            user
+        where
+            comment.is_deleted = 0
+          and
+            comment_user_id = user_id
+        order by
+            comment.create_time desc
+    </select>
+
+    <select id="selectReported" resultType="Comment">
+        select
+            comment_id,
+            comment_blog_id,
+            parent_id,
+            comment_user_id,
+            comment_content,
+            comment.create_time,
+            nickname,
+            avatar,
+            reported
+        from
+            comment,
+            user
+        where
+            comment.is_deleted = 0
+          and
+            comment_user_id = user_id
+          and
+            reported > 0
+        order by
+            comment.create_time desc
     </select>
 </mapper>

@@ -49,9 +49,10 @@ public interface BlogMapper extends BaseMapper<Blog> {
 
     /**
      * 获取首页热门文章
+     * @param page
      * @return
      */
-    List<Blog> getHotList();
+    List<Blog> getHotList(Page<?> page);
 
     /**
      * 获取指定用户文章列表

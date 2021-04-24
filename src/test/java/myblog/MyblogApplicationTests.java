@@ -62,12 +62,6 @@ class MyblogApplicationTests {
     }
 
     @Test
-    void getHot() {
-        List<Blog> hotList = blogMapper.getHotList();
-        hotList.forEach(System.out::println);
-    }
-
-    @Test
     void getHomePage() {
         QueryWrapper<HomePage> wrapper = new QueryWrapper<>();
         wrapper.eq("user_id", 1);
@@ -106,5 +100,15 @@ class MyblogApplicationTests {
         List<BlogList> list = blogService.selectBloglist(page);
         list.forEach(System.out::println);
 
+    }
+
+    @Test
+    void delcom() {
+        // QueryWrapper<Comment> wrapper = new QueryWrapper<>();
+        // wrapper.eq("parent_id", 43);
+        // List<Comment> comments = commentMapper.selectList(wrapper);
+        List<Integer> children = commentMapper.getChildren(44);
+        System.out.println(children);
+        System.out.println(children.isEmpty());
     }
 }

@@ -51,7 +51,7 @@
             LEFT JOIN favorite
             ON blog_id = favorite_blog_id
             LEFT JOIN `comment`
-            ON blog_id = comment_blog_id
+            ON blog_id = comment_blog_id and comment.is_deleted = 0
         where blog.is_deleted = 0 and blog_status = 0
         GROUP BY
             blog_id
@@ -78,7 +78,7 @@
                 LEFT JOIN favorite
                           ON blog_id = favorite_blog_id
                 LEFT JOIN `comment`
-                          ON blog_id = comment_blog_id
+                          ON blog_id = comment_blog_id and comment.is_deleted = 0
         where blog_channel_id = #{channelId} and blog.is_deleted = 0 and blog_status = 0
         GROUP BY
             blog_id
@@ -114,7 +114,7 @@
     </select>
 
     <select id="getHotList" resultType="Blog">
-        select blog_id, blog_title from blog where blog.is_deleted = 0 AND blog_status = 0 order by blog_views desc limit 5;
+        select blog_id, blog_title from blog where blog.is_deleted = 0 AND blog_status = 0 order by blog_views desc
     </select>
 
     <select id="getListById" parameterType="Blog" resultType="Blog">
@@ -149,7 +149,7 @@
                 LEFT JOIN favorite
                           ON blog_id = favorite_blog_id
                 LEFT JOIN `comment`
-                          ON blog_id = comment_blog_id
+                          ON blog_id = comment_blog_id and comment.is_deleted = 0
         where blog.is_deleted = 0 and blog_status = 0 and favorite_user_id = #{userId}
         GROUP BY
             blog_id
@@ -175,7 +175,7 @@
                 LEFT JOIN favorite
                           ON blog_id = favorite_blog_id
                 LEFT JOIN `comment`
-                          ON blog_id = comment_blog_id
+                          ON blog_id = comment_blog_id and comment.is_deleted = 0
         where blog.is_deleted = 0 and
               blog_status = 0 and
               (blog_title like concat('%',#{keyword},'%') or

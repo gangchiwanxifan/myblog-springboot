@@ -57,7 +57,7 @@ public interface BlogService extends IService<Blog> {
      * 获取首页热门列表
      * @return
      */
-    List<Blog> getHotList();
+    List<Blog> getHotList(Page<?> page);
 
     /**
      * 获取用户文章列表

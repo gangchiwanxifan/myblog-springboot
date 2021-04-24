@@ -1,7 +1,8 @@
 package myblog.mapper;
 
-import myblog.entity.Comment;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import myblog.entity.Comment;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -30,5 +31,26 @@ public interface CommentMapper extends BaseMapper<Comment> {
      */
     @Select("select comment_user_id from comment where comment_id = #{commentId}")
     Integer getAuthorId(Integer commentId);
+
+    /**
+     * 获取评论列表
+     * @param page
+     * @return
+     */
+    List<Comment> selectList(Page<?> page);
+
+    /**
+     * 获取被举报列表
+     * @return
+     */
+    List<Comment> selectReported(Page<?> page);
+
+    /**
+     * 获取子评论id列表
+     * @param id
+     * @return
+     */
+    @Select("select comment_id from comment where parent_id = #{id}")
+    List<Integer> getChildren(Integer id);
 
 }

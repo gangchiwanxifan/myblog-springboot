@@ -76,9 +76,10 @@ public class BlogController {
         return JsonResult.ok(detail);
     }
 
-    @RequestMapping("/hot")
-    public JsonResult<List<Blog>> getHot() {
-        List<Blog> list = blogService.getHotList();
+    @RequestMapping("/hot/{pageNum}")
+    public JsonResult<List<Blog>> getHot(@PathVariable("pageNum") Integer pageNum) {
+        Page<Blog> page = new Page<>(pageNum, 5);
+        List<Blog> list = blogService.getHotList(page);
         return  JsonResult.ok(list);
     }
 

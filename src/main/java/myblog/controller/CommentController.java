@@ -1,6 +1,8 @@
 package myblog.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import myblog.entity.Comment;
 import myblog.entity.Notice;
 import myblog.service.CommentService;
@@ -61,5 +63,30 @@ public class CommentController {
     public JsonResult<Integer> delete(@RequestBody Comment comment) {
         return JsonResult.ok(commentService.deleteComments(comment));
     }
+
+    @RequestMapping("/update")
+    public JsonResult<Boolean> update(@RequestBody Comment comment) {
+        return JsonResult.ok(commentService.updateById(comment));
+    }
+
+    @RequestMapping("/page/{pageNum}")
+    public JsonResult<List<Comment>> list(@PathVariable("pageNum") Integer pageNum) {
+        Page<Comment> page = new Page<>(pageNum, 8);
+        return JsonResult.ok(commentService.getCommentList(page));
+    }
+
+    @RequestMapping("/reported/{pageNum}")
+    public JsonResult<List<Comment>> reported(@PathVariable("pageNum") Integer pageNum) {
+        Page<Comment> page = new Page<>(pageNum, 8);
+        return JsonResult.ok(commentService.getReportedList(page));
+    }
+
+    @RequestMapping("/deletebyid")
+    public JsonResult<Integer> deletebyid(@RequestBody String condition) {
+        JSONObject jsonObject= (JSONObject) JSONObject.parse(condition);
+        Integer commentId = jsonObject.getInteger("commentId");
+        return JsonResult.ok(commentService.deleteCommentById(commentId));
+    }
+
 }
 
