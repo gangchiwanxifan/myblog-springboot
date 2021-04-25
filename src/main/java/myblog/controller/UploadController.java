@@ -16,9 +16,9 @@ import java.util.UUID;
  */
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api2")
 public class UploadController {
-    @RequestMapping("upload")
+    @RequestMapping("/upload")
     public JsonResult<String> upload(MultipartFile file) throws IOException {
         String headUrl;
         if (file == null) {

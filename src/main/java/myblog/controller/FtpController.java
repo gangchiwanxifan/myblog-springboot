@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 
 @RestController
-@RequestMapping("/common")
+@RequestMapping("/api")
 public class FtpController {
 
     @Resource

@@ -36,8 +36,6 @@ public class FileUtil {
         StringBuilder url = new StringBuilder();
 
         FTPClient ftp = new FTPClient();
-        ftp.setControlEncoding("utf-8");
-        ftp.enterLocalPassiveMode(); // 开启被动模式
 
         try {
             ftp.connect(ftpHost, ftpPort);
@@ -45,22 +43,28 @@ public class FileUtil {
 
             ftp.setFileType(FTPClient.BINARY_FILE_TYPE);
 
+            ftp.setControlEncoding("UTF-8");
+            ftp.enterLocalPassiveMode(); // 开启被动模式
+
             int reply = ftp.getReplyCode();
             System.out.println("reply:" + reply);
 
             String uuid = UUID.randomUUID().toString().replaceAll("-", "");
             String ext = FilenameUtils.getExtension(originName);
             originName = uuid + "." + ext;
-            url.append(originName);
 
             ftp.makeDirectory(basePath);
             ftp.changeWorkingDirectory(basePath);
 
 
-            ftp.storeFile(originName, inputStream);
+            boolean flag = ftp.storeFile(originName, inputStream);
+            System.out.println(flag);
             inputStream.close();
             ftp.logout();
 
+            if (flag) {
+                url.append("http://39.107.229.252/image/").append(originName);
+            }
         } catch (IOException e) {
             throw new RuntimeException("文件上传失败");
         } finally {

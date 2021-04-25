@@ -1,7 +1,9 @@
 package myblog.mapper;
 
-import myblog.entity.Config;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import myblog.entity.Config;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -12,5 +14,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2021-04-24
  */
 public interface ConfigMapper extends BaseMapper<Config> {
+
+    /**
+     * 获取统计信息
+     * @return
+     */
+    Map<String, Integer> getInfo();
 
 }
