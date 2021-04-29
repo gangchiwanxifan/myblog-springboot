@@ -61,9 +61,6 @@ public class BlogController {
         JSONObject jsonObject= (JSONObject) JSONObject.parse(condition);
         Integer channelId = jsonObject.getInteger("channelId");
         Boolean sortByViews = jsonObject.getBoolean("sortByViews");
-        System.out.println("=====================");
-        System.out.println(sortByViews);
-        System.out.println("=====================");
         List<BlogList> blogList = blogService.selectListBychannel(channelId, sortByViews);
         return JsonResult.ok(blogList);
     }
