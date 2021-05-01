@@ -127,6 +127,7 @@
         <if test="blogCatagoryId != null">
             and blog_catagory_id = #{blogCatagoryId}
         </if>
+        order by create_time desc
     </select>
 
     <select id="getFavoriteById" resultMap="BlogList">
@@ -153,6 +154,7 @@
         where blog.is_deleted = 0 and blog_status = 0 and favorite_user_id = #{userId}
         GROUP BY
             blog_id
+        order by blog.create_time desc
     </select>
 
     <select id="searchBlog" resultMap="BlogList">

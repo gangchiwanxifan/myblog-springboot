@@ -71,7 +71,7 @@ public class MyGenerator {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
 
         // *****设置要映射的表名*****
-        strategy.setInclude("link");
+        strategy.setInclude("order_detail");
 
         // 自动lombok
         strategy.setEntityLombokModel(true);

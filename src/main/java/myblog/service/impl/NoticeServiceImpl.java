@@ -37,6 +37,7 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
     public Integer sendNotice(Notice notice) {
         int flag = 0;
         switch (notice.getEvent()){
+            // 关注
             case 0 :
                 QueryWrapper<Notice> wrapper0 = new QueryWrapper<>();
                 wrapper0.eq("notice_user_id", notice.getNoticeUserId())
@@ -50,6 +51,7 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
                     flag = noticeMapper.insert(notice);
                 }
                 break;
+            // 收藏文章
             case 1 :
                 QueryWrapper<Notice> wrapper1 = new QueryWrapper<>();
                 Integer authorId = blogMapper.getAuthorId(notice.getNoticeBlogId());
@@ -66,6 +68,7 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
                     flag = noticeMapper.insert(notice);
                 }
                 break;
+            // 评论文章
             case 2 :
                 QueryWrapper<Notice> wrapper2 = new QueryWrapper<>();
                 notice.setNoticeUserId(blogMapper.getAuthorId(notice.getNoticeBlogId()));
@@ -80,7 +83,9 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
                 } else {
                     flag = noticeMapper.insert(notice);
                 }
+                // flag = noticeMapper.insert(notice);
                 break;
+            // 评论回复
             case 3 :
                 QueryWrapper<Notice> wrapper3 = new QueryWrapper<>();
                 notice.setNoticeUserId(commentMapper.getAuthorId(notice.getNoticeUserId()));
@@ -95,20 +100,23 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
                 } else {
                     flag = noticeMapper.insert(notice);
                 }
+                // flag = noticeMapper.insert(notice);
                 break;
+            // 打赏文章
             case 4 :
-                QueryWrapper<Notice> wrapper4 = new QueryWrapper<>();
-                wrapper4.eq("notice_user_id", notice.getNoticeUserId())
-                        .eq("notice_send_id", notice.getNoticeSendId())
-                        .eq("notice_blog_id", notice.getNoticeBlogId())
-                        .eq("event", 4);
-                Notice one4 = noticeMapper.selectOne(wrapper4);
-                if (one4 != null) {
-                    one4.setNoticeStatus(0);
-                    flag = noticeMapper.updateById(one4);
-                } else {
-                    flag = noticeMapper.insert(notice);
-                }
+                // QueryWrapper<Notice> wrapper4 = new QueryWrapper<>();
+                // wrapper4.eq("notice_user_id", notice.getNoticeUserId())
+                //         .eq("notice_send_id", notice.getNoticeSendId())
+                //         .eq("notice_blog_id", notice.getNoticeBlogId())
+                //         .eq("event", 4);
+                // Notice one4 = noticeMapper.selectOne(wrapper4);
+                // if (one4 != null) {
+                //     one4.setNoticeStatus(0);
+                //     flag = noticeMapper.updateById(one4);
+                // } else {
+                //     flag = noticeMapper.insert(notice);
+                // }
+                flag = noticeMapper.insert(notice);
                 break;
             default:
                 break;

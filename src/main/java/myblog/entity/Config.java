@@ -33,9 +33,19 @@ public class Config implements Serializable {
     private String swiper1;
 
     /**
+     * 图1超链接
+     */
+    private String swiper1Url;
+
+    /**
      * 轮播图2
      */
     private String swiper2;
+
+    /**
+     * 图2超链接
+     */
+    private String swiper2Url;
 
     /**
      * 公告
