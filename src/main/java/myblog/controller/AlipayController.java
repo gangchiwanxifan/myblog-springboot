@@ -79,7 +79,13 @@ public class AlipayController {
             System.out.println("==================");
             System.out.println(bodyJsonObject);
             // 支付成功，保存的订单交易明细
-            orderDetailService.callBackSave(bodyJsonObject);
+            Integer orderType = bodyJsonObject.getInteger("orderType");
+            if (orderType == 0) {
+                orderDetailService.callBackSave(bodyJsonObject);
+            } else if(orderType == 1) {
+                orderDetailService.callBackReCharge(bodyJsonObject);
+            }
+
 
         } catch (Exception ex) {
             log.info("支付宝支付出现了异常.....");

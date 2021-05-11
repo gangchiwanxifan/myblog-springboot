@@ -46,8 +46,8 @@ public class OrderDetailServiceImpl extends ServiceImpl<OrderDetailMapper, Order
         Integer targetId = jsonObject.getInteger("targetId");
         // 金额
         Integer price = jsonObject.getInteger("price");
-        // 支付类型
-        Integer orderType = jsonObject.getInteger("orderType");
+        // 支付方式
+        Integer orderMethod = jsonObject.getInteger("orderMethod");
         // 文章id
         Integer blogId = jsonObject.getInteger("blogId");
         // 标识时间戳
@@ -59,7 +59,7 @@ public class OrderDetailServiceImpl extends ServiceImpl<OrderDetailMapper, Order
         orderDetail.setOrderTargetId(targetId);
         orderDetail.setOrderTargetName(userMapper.getNickname(targetId));
         orderDetail.setOrderPrice(price);
-        orderDetail.setOrderType(orderType);
+        orderDetail.setOrderMethod(orderMethod);
         orderDetail.setOrderBlogId(blogId);
         orderDetail.setOrderBlogTitle(blogMapper.getBlogTitle(blogId));
         orderDetail.setOrderCheckId(timestamp);
@@ -82,8 +82,41 @@ public class OrderDetailServiceImpl extends ServiceImpl<OrderDetailMapper, Order
         notice.setNoticeBlogId(blogId);
         noticeService.sendNotice(notice);
 
+    }
 
+    @Override
+    public void callBackReCharge(JSONObject jsonObject) {
+        // 用户id
+        Integer userId = jsonObject.getInteger("userId");
+        // 目标用户id
+        Integer targetId = jsonObject.getInteger("targetId");
+        // 金额
+        Integer price = jsonObject.getInteger("price");
+        // 支付方式
+        Integer orderMethod = jsonObject.getInteger("orderMethod");
+        // 支付类型
+        Integer orderType = jsonObject.getInteger("orderType");
+        // 标识时间戳
+        String timestamp = jsonObject.getString("timestamp");
 
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setOrderUserId(userId);
+        orderDetail.setOrderUserName(userMapper.getNickname(userId));
+        orderDetail.setOrderTargetId(targetId);
+        orderDetail.setOrderTargetName(userMapper.getNickname(targetId));
+        orderDetail.setOrderPrice(price);
+        orderDetail.setOrderMethod(orderMethod);
+        orderDetail.setOrderType(orderType);
+        orderDetail.setOrderCheckId(timestamp);
 
+        // 交易成功保存记录
+        orderDetailMapper.insert(orderDetail);
+
+        // 账户余额更新
+        Integer banlance = userMapper.selectById(targetId).getBalance();
+        User targetUser = new User();
+        targetUser.setUserId(targetId);
+        targetUser.setBalance(banlance + price);
+        userMapper.updateById(targetUser);
     }
 }

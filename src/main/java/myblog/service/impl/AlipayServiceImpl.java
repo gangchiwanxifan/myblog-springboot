@@ -46,10 +46,12 @@ public class AlipayServiceImpl implements AlipayService {
     @Override
     public byte[] alipay(PayVo payVo){
         try {
+            System.out.println(payVo);
             // 业务数据
             Integer orderType = payVo.getOrderType();
             Integer blogId = payVo.getBlogId();
             String timestamp = payVo.getTimestamp();
+            Integer orderMethod = payVo.getOrderMethod();
             // 1：支付的用户
             Integer userId = payVo.getUserId();
             // 2: 支付金额
@@ -66,6 +68,7 @@ public class AlipayServiceImpl implements AlipayService {
             json.put("orderType", orderType);
             json.put("blogId", blogId);
             json.put("timestamp", timestamp);
+            json.put("orderMethod", orderMethod);
             String params = json.toString();
 
             // 支付信息的参数

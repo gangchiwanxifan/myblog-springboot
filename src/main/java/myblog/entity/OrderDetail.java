@@ -80,5 +80,10 @@ public class OrderDetail implements Serializable {
      */
     private String orderCheckId;
 
+    /**
+     * 方式
+     */
+    private Integer orderMethod;
+
 
 }

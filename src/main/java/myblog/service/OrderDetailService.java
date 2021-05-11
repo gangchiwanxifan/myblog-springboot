@@ -15,9 +15,15 @@ import myblog.entity.OrderDetail;
 public interface OrderDetailService extends IService<OrderDetail> {
 
     /**
-     * 收到支付宝回调信息后保存数据
+     * 收到支付宝回调信息后保存打赏信息
      * @param jsonObject
      */
     void callBackSave(JSONObject jsonObject);
+
+    /**
+     * 收到支付宝回调信息后保存充值信息
+     * @param jsonObject
+     */
+    void callBackReCharge(JSONObject jsonObject);
 
 }

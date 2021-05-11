@@ -69,9 +69,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         Map<Integer, Comment> map = new HashMap<>();
         List<Comment> result = new ArrayList<>();
         for (Comment c : allComments) {
+            // 获取文章根评论
             if (c.getParentId() == null) {
                 result.add(c);
             }
+            // 所有评论保存到map中
             map.put(c.getCommentId(), c);
         }
         for (Comment c : allComments) {
@@ -80,6 +82,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
                 if (parent.getChild() == null) {
                     parent.setChild(new ArrayList<>());
                 }
+                // 添加子评论
                 parent.getChild().add(c);
             }
         }

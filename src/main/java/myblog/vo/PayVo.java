@@ -26,4 +26,6 @@ public class PayVo {
     private Integer blogId;
 
     private String timestamp;
+
+    private Integer orderMethod;
 }
